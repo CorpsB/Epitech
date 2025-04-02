@@ -1,0 +1,49 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2023
+## 103 cipher
+## File description:
+## math projet n°3
+##
+
+from sys import argv as av
+from printing import *
+from calculate import *
+from math import *
+
+ac = len(av)
+if ac == 2:
+    if av[1] == "-h":
+        help_print()
+    else:
+        error_unknown_print()
+if ac != 4:
+    error_size_print()
+
+try:
+    msg = av[1]
+    key = av[2]
+    mode = int(av[3])
+except:
+    error_type_print()
+
+if (mode == 0):
+    key_size = get_key_size(key)
+    m_key = get_key_matrix(key, key_size)
+    m_msg = get_msg_matrix(msg, key_size)
+
+    key_matrix_print(m_key)
+    print()
+    msg_matrix_print(multiple_matrix(m_msg, m_key))
+elif (mode == 1):
+    key_size = get_key_size(key)
+    m_key = get_key_matrix(key, key_size)
+    r_key = get_inverse_matrix(m_key)
+    m_msg = get_msg_matrix_crypt(msg, key_size)
+
+    crypted_key_matrix_print(r_key)
+    print()
+    msg_alpha_print(multiple_matrix(m_msg, r_key))
+else:
+    error_type_print()
+exit(0)

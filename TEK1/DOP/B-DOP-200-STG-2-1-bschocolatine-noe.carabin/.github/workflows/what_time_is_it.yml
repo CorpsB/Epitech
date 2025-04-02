@@ -1,0 +1,11 @@
+name: Time
+on: [push]
+
+jobs:
+  show-date:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say date and time
+        run: |
+          date
+

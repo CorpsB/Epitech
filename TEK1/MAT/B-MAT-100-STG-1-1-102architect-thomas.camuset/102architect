@@ -1,0 +1,142 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2023
+## B-MAT-100-STG-1-1-102architect-thomas.camuset and CARABIN Noé
+## File description:
+## 102architect.py
+##
+
+import math
+from sys import argv
+
+def help():
+    print("USAGE")
+    print("    ./102architect x y transfo1 arg11 [arg12] [transfo2 arg21 [arg22]] ...")
+    print()
+    print("DESCRIPTION")
+    print("    x abscissa of the original point")
+    print("    y ordinate of the original point")
+    print()
+    print("    transfo arg1 [arg2]")
+    print("    -t i j translation along vector (i, j)")
+    print("    -z m n scaling by factors m (x-axis) and n (y-axis)")
+    print("    -r d rotation centered in O by a d degree angle")
+    print("    -s d reflection over the axis passing through O with an inclination")
+    print("         angle of d degrees")
+
+def multip_matrix(matrice1, matrice2):
+    a = matrice1[0][0] * matrice2[0][0] + matrice1[0][1] * matrice2[1][0] + matrice1[0][2] * matrice2[2][0]
+    b = matrice1[0][0] * matrice2[0][1] + matrice1[0][1] * matrice2[1][1] + matrice1[0][2] * matrice2[2][1]
+    c = matrice1[0][0] * matrice2[0][2] + matrice1[0][1] * matrice2[1][2] + matrice1[0][2] * matrice2[2][2]
+
+    d = matrice1[1][0] * matrice2[0][0] + matrice1[1][1] * matrice2[1][0] + matrice1[1][2] * matrice2[2][0]
+    e = matrice1[1][0] * matrice2[0][1] + matrice1[1][1] * matrice2[1][1] + matrice1[1][2] * matrice2[2][1]
+    f = matrice1[1][0] * matrice2[0][2] + matrice1[1][1] * matrice2[1][2] + matrice1[1][2] * matrice2[2][2]
+
+    g = matrice1[2][0] * matrice2[0][0] + matrice1[2][1] * matrice2[1][0] + matrice1[2][2] * matrice2[2][0]
+    h = matrice1[2][0] * matrice2[0][1] + matrice1[2][1] * matrice2[1][1] + matrice1[2][2] * matrice2[2][1]
+    i = matrice1[2][0] * matrice2[0][2] + matrice1[2][1] * matrice2[1][2] + matrice1[2][2] * matrice2[2][2]
+    
+    result_matrix = [
+            [a, b, c],
+            [d, e, f],
+            [g, h, i]
+            ]
+    return (result_matrix)
+
+def multip_one_matrix(matrix3, matrix1):
+    a = matrix3[0][0] * matrix1[0][0] + matrix3[0][1] * matrix1[1][0] + matrix3[0][2] * matrix1[2][0]
+    b = matrix3[1][0] * matrix1[0][0] + matrix3[1][1] * matrix1[1][0] + matrix3[1][2] * matrix1[2][0]
+    c = matrix3[2][0] * matrix1[0][0] + matrix3[2][1] * matrix1[1][0] + matrix3[2][2] * matrix1[2][0]
+
+    result_matrix = [
+        [a],
+        [b],
+        [c]
+    ]
+    return (result_matrix)
+
+def main():
+    ac = len(argv)
+    nbr = 3
+
+    if ac == 1:
+        print("Invalid inputs, please check -h for more info")
+        return (84)
+    if ac == 2:
+        if argv[1][0] == '-' and argv[1][1] == 'h':
+            help()
+            return (0)
+    x = int(argv[1])
+    y = int(argv[2])
+    coordonate_matrix = [
+        [x],
+        [y],
+        [1]
+    ]
+    result_matrice = [
+        [1, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1]
+    ]
+
+    for nbr in range(ac):
+        try:
+            if argv[nbr][0] == '-' and argv[nbr][1] == 't':
+                translation_matrice = [
+                [1, 0, int(argv[nbr + 1])],
+                [0, 1, int(argv[nbr + 2])],
+                [0, 0, 1]
+                ]
+                nbr = nbr + 3
+                result_matrice = multip_matrix(translation_matrice, result_matrice)
+                print(f"Translation along vector ({argv[nbr - 2]}, {argv[nbr - 1]})")
+                continue
+            if argv[nbr][0] == '-' and argv[nbr][1] == 'z':
+                scaling_matrice = [
+                [int(argv[nbr + 1]), 0, 0],
+                [0, int(argv[nbr + 2]), 0],
+                [0, 0, 1]
+                ]
+                nbr = nbr + 3
+                result_matrice = multip_matrix(scaling_matrice, result_matrice)
+                print(f"Scaling by factors {argv[nbr - 2]} and {argv[nbr - 1]}")
+                continue
+            if argv[nbr][0] == '-' and argv[nbr][1] == 'r':
+                angle = math.radians(int(argv[nbr + 1]))
+                translation_matrice = [
+                [math.cos(angle), -math.sin(angle), 0],
+                [math.sin(angle), math.cos(angle), 0],
+                [0, 0, 1]
+                ]
+                nbr = nbr + 2
+                result_matrice = multip_matrix(translation_matrice, result_matrice)
+                print(f"Rotation by a {argv[nbr - 1]} degree angle")
+
+                continue
+            if argv[nbr][0] == '-' and argv[nbr][1] == 's':
+                angle = math.radians(int(argv[nbr + 1]))
+                translation_matrice = [
+                [math.cos(2 * angle), math.sin(2 * angle), 0],
+                [math.sin(2 * angle), -math.cos(2 * angle), 0],
+                [0, 0, 1]
+                ]
+                nbr = nbr + 2
+                result_matrice = multip_matrix(translation_matrice, result_matrice)
+                print(f"Reflection over an axis with an inclination angle of {argv[nbr - 1]} degrees")
+                continue
+        except:
+            return (84)
+    final_result = multip_one_matrix(result_matrice, coordonate_matrix)
+    print(f"{round(result_matrice[0][0], 2):.2f}\t{round(result_matrice[0][1]):.2f}\t{round(result_matrice[0][2]):.2f}")
+    print(f"{round(result_matrice[1][0], 2):.2f}\t{round(result_matrice[1][1]):.2f}\t{round(result_matrice[1][2]):.2f}")
+    print(f"{round(result_matrice[2][0], 2):.2f}\t{round(result_matrice[2][1]):.2f}\t{round(result_matrice[2][2]):.2f}")
+    x = round(x, 2)
+    y = round(y, 2)
+    a = final_result[0][0]
+    a = round(a, 2)
+    b = final_result[1][0]
+    b = round(b, 2)
+    print(f"({x:.2f}, {y:.2f}) => ({a:.2f}, {b:.2f})")
+
+main()

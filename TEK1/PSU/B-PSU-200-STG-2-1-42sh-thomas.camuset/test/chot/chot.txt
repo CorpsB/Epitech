@@ -1,0 +1,4 @@
+info: New user created successfully
+error: Permission denied while trying to write to log file
+info: System update completed
+error: User admin2 could not be deleted

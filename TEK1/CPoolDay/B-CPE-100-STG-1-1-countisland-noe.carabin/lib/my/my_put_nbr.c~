@@ -1,0 +1,27 @@
+/*
+** EPITECH PROJECT, 2023
+** Put number
+** File description:
+** Write a number (lmimit = int)
+*/
+
+void put_char(c)
+{
+    write(1, &c, 1);
+}
+
+int put_nbr(int a)
+{
+    int b = a;
+
+    if (a == 0) {
+        put_char(48);
+        return (0);
+            }
+    if (b < 0) {
+            put_char(45);
+            a = a*(-1);
+        }
+    put_nbr(a / 10);
+    put_char(a % 10 + 48);
+}

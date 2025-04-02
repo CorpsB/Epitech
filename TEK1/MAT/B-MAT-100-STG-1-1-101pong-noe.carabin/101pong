@@ -1,0 +1,69 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2023
+## B-MAT-100-STG-1-1-101pong-noe.carabin
+## File description:
+## 101pong.py
+##
+
+import math
+from sys import argv
+
+def help():
+    print("USAGE")
+    print("    ./101pong x0 y0 z0 x1 y1 z1 n")
+    print("DESCRIPTION")
+    print("    x0  ball abscissa at time t - 1")
+    print("    y0  ball ordinate at time t - 1")
+    print("    z0  ball altitude at time t - 1")
+    print("    x1  ball abscissa at time t")
+    print("    y1  ball ordinate at time t")
+    print("    z1  ball altitude at time t")
+    print("    n   time shift (greater than or equal to zero, integer)")
+
+def pong(x0, y0, z0, x1, y1, z1, n):
+    vx = (x1 - x0)
+    x = x1 + vx * n
+    vy = (y1 - y0)
+    y = y1 + vy * n
+    vz = (z1 - z0)
+    z = z1 + vz * n
+
+    print(f"The volocity vector of the ball is:")
+    print(f"({round(vx, 2):.2f}, {round(vy, 2):.2f}, {round(vz, 2):.2f})")
+    print(f"At time t + {n}, the ball coordinates will be:");
+    print(f"({round(x, 2):.2f}, {round(y, 2):.2f}, {round(z, 2):.2f})")
+
+    if ((z1 >= 0 and vz < 0) or (z1 < 0 and vz >= 0)):
+        teta = math.acos(vz / math.sqrt(vx**2 + vy**2 + vz**2))
+        teta = abs(90 - math.degrees(teta))
+        print(f"The incidence angle is:")
+        print(f"{round(teta, 2):.2f} degrees")
+    else:
+        print(f"The ball won't reach the paddle.")
+
+def error_case():
+    if (len(argv) == 2):
+    	if (argv[1] == "-h"):
+            help()
+    else:
+        if (len(argv) != 8):
+            print("To few or not enough argument found")
+            exit (84)
+        try:
+            x = float(argv[1])
+            y = float(argv[2])
+            z = float(argv[3])
+            x1 = float(argv[4])
+            y1 = float(argv[5])
+            z1 = float(argv[6])
+            n = int(argv[7])
+            if (n < 0):
+                print("Time can not be negative")
+                exit (84)
+        except:
+            print("Argument type are incorect, please check : every coordonate are float and time is unsigned int")
+            exit (84)
+        pong(x, y, z, x1, y1, z1, n)
+
+error_case()

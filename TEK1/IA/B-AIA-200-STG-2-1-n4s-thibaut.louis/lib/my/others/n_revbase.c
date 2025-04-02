@@ -1,0 +1,21 @@
+/*
+** EPITECH PROJECT, 2023
+** KJ_REVERSE_BASE
+** File description:
+** Put a number back into base 10.
+*/
+
+#include "../../../include/my.h"
+
+long long n_revbase(char *nb, int base)
+{
+    int result = 0;
+    int size = my_strlen(nb) - 1;
+    int j = 0;
+
+    for (int i = 0; nb[i] != '\0'; ++i){
+        for (j = 0; BASE_36[j] != nb[i]; ++j);
+        result += (j * n_power(base, size - i));
+    }
+    return (result);
+}

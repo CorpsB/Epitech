@@ -1,0 +1,17 @@
+############################################
+############# 42sh config file #############
+############################################
+
+set term = $TERM
+set cwd = $PWD
+
+# empeche de quitter sur contrôle D jusqu'à la valeur si définie sinon infinie
+# set ignoreeof = 3
+
+# execute une commande avant un le prompt (+1 prio)
+# alias precmd echo "Heure actuelle: `date +%H:%M:%S`"
+
+# execute une commande quand le dossier change (-1 prio)
+# alias cwdcmd echo "Tu es maintenant dans: $cwd"
+
+# alias noopy 'echo Noupy Gang, représente.'

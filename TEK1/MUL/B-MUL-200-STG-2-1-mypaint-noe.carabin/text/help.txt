@@ -1,0 +1,7 @@
+USAGE :
+./my_paint
+./my_paint path/to/your/image
+
+DESCRIPTION :
+This program reproduces the paint software. You can launch it directly to obtain a new white image, or enter the path to your file to open it.
+/!\WARNING: If you use the gome tool (in the edit section), you'll have to switch back to the pen (in this same section).

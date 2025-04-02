@@ -1,0 +1,4 @@
+error: Login failed for user admin1
+info: User guest accessed the system
+error: Unexpected error occurred during data processing
+warning: Memory usage is above threshold

@@ -1,0 +1,11 @@
+#!/bin/bash
+$1
+if [ -z $1]
+then
+    wc -l day02/students.csv
+else
+   grep -n -r $1 day02 | wc -l
+fi
+
+       
+

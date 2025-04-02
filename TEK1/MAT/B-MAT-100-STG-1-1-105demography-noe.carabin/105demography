@@ -1,0 +1,198 @@
+#!/usr/bin/env python3
+##
+## EPITECH PROJECT, 2023
+## 105 demography
+## File description:
+## math projet n°5 + corrigé par Noé Héhé
+##
+
+from csv import reader
+from sys import argv as av
+from math import *
+
+ac = len(av)
+header = []
+
+# Convertisseur de CSV vers tableau de tableau (ou matrice de str)
+def csv_converter(file_path:str):
+    tab = []
+    file = open(file_path, newline='')
+    csv_reader = reader(file, delimiter = ';')
+
+    header.append(next(csv_reader))
+    for row in csv_reader:
+        tab.append(row)
+    return tab
+
+# -h print
+def help_print():
+    print("USAGE")
+    print("\t./105demography [code]+")
+    print()
+    print("DESCRIPTION")
+    print("\tcode\tcountry code")
+
+# Gestion du -h
+if (ac > 1):
+    if (av[1] == "-h" and ac == 2):
+        help_print()
+        exit(0)
+else:
+    exit(84)
+
+# Variable definition
+country_data = csv_converter("./105demography_data.csv")
+country_ids = []
+country_names = []
+country_pop_tmp = []
+country_pop = []
+years = 1000000
+years_sum = 0
+popul_sum = 0
+a = 0
+b = 0
+c = 0
+d = 0
+f = 0
+e_p = 0
+var1 = 0
+var2 = 0
+var1_p = 0
+var2_p = 0
+rms = 0
+sign = "+"
+sign_p = "+"
+
+# Check invalid parameters
+for arg in av[1:]:
+    for country in country_data:
+        if country[1] == arg:
+            country_ids.append(arg)
+            country_names.append(country[0])
+            country_pop_tmp.append(country[1:])
+if len(country_ids) != len(av[1:]):
+    exit(84)
+
+# Check min
+def check_min(min_value:int, tab:list):
+    count = 0
+    for i in range(len(tab)):
+        if tab[i] != ".." and tab[i] != "":
+            count += 1
+    if min_value < count:
+        return min_value
+    else:
+        if (count == 0):
+            return 0
+        return count
+
+# Country display
+def concat_country(tab:list) -> str:
+    str = ""
+    for i in range(len(tab)):
+        str += tab[i]
+        if (i != len(tab) - 1):
+            str += ", "
+    return str
+
+# Get years in common
+for i in range(len(country_pop_tmp)):
+    years = check_min(years, country_pop_tmp[i][1:])
+
+# Get country_pop
+for i in range(years):
+    country_pop.append(0)
+for element in country_pop_tmp:
+    for j in range(years):
+        country_pop[j] += int(element[1 + j])
+
+# Get A
+for i in range(years):
+    if country_pop[i] != 0:
+        a += ((1960 + i) * country_pop[i])
+
+# Get B
+for i in range(years):
+    b += (1960 + i)
+
+# Get C
+for element in country_pop:
+    c += element
+
+# Get D
+for element in country_pop:
+    d += element**2
+
+# Get F
+for i in range(years):
+    f += (1960 + i)**2
+
+# Get var1
+def var1(years, f, a, b, c):
+    if years * f - b**2 != 0:
+        return ((years * a - b * c) / (years * f - b**2))
+    else:
+        exit(84)
+
+# Get var2
+def get_ordo(c, b, years):
+    if years != 0:
+        return ((c - var1(years, f, a, b, c) * b) / years)
+    else:
+        exit(84)
+
+# Modify sign
+if var2 < 0:
+    sign = "-"
+if var2_p < 0:
+    sign_p = "-"
+
+def rms(aa, bb):
+    result = 0
+
+    for i in range(years):
+        result += (country_pop[i] - (aa * (1960 + i) + bb))**2
+    
+    return sqrt(result / years)
+
+def rms2(aa, bb):
+    result = 0
+
+    for i in range(years):
+        result += (country_pop[i] - (((1960 + i) - bb) / aa))**2
+    
+    return sqrt(result / years)
+
+if ((get_ordo(c, b, years) / 1000000) < 0):
+    sign = '-'
+else:
+    sign = '+'
+
+if (((b - var1(years, d, a, c, b) * c) / years) < 0):
+    sign_p = '-'
+else:
+    sign_p = '+'
+
+#Corrélation : 
+def corr():
+    square_years = 0
+    square_pop = 0
+    for i in range(years):
+        square_years += (1960 + i)**2
+    for i in range(years):
+        square_pop += country_pop[i]**2
+    something = years * a - b * c
+    something2 = sqrt(((years * square_years - b**2) * (years * square_pop - c**2)))
+    return (something/something2)
+
+# Printing output
+print(f"Country: {concat_country(country_names)}")
+print("Fit1")
+print(f"   Y = {round(var1(years, f, a, b, c) / 1000000, 2):.2f} X {sign} {round(abs(get_ordo(c, b, years)) / 1000000, 2):.2f}")
+print(f"   Root-mean-square deviation: {round(rms(var1(years, f, a, b, c), get_ordo(c, b, years)) / 1000000, 2):.2f}")
+print(f"   Population in 2050: {round((var1(years, f, a, b, c) * 2050 + get_ordo(c, b, years)) / 1000000, 2):.2f}")
+print(f"Fit2")
+print(f"   X = {round(var1(years, d, a, c, b)*1000000 + 0.00, 2):.2f} Y {sign_p} {round(abs((b - var1(years, d, a, c, b) * c) / years), 2):.2f}")
+print(f"   Root-mean-square deviation: {round(rms2(var1(years, d, a, c, b), (b - var1(years, d, a, c, b) * c) / years) / 1000000, 2):.2f}")
+print(f"   Population in 2050: {round((2050 - ((b - var1(years, d, a, c, b) * c) / years)) / var1(years, d, a, c, b) / 1000000, 2):.2f}")
+print(f"Correlation: {round(corr(), 4):.4f}")

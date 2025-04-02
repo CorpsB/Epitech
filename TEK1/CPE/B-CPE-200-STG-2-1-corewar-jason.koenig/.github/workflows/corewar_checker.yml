@@ -1,0 +1,87 @@
+name: corewar_checker
+
+on:
+  push:
+    branches-ignore:
+      - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+      - "ga-ignore-*"
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Place depo inside the container
+        uses: actions/checkout@v3
+      - name : Lauch coding-style
+        run: |
+          check.sh $(pwd) $(pwd)
+          if test -s coding-style-reports.log; then
+            while IFS= read -r line; do
+              file=$(echo "$line" | cut -d':' -f1)
+              line_num=$(echo "$line" | cut -d':' -f2-3)
+              error_type=$(echo "$line" | cut -d' ' -f2 | cut -d':' -f1)
+              error_name=$(echo "$line" | cut -d':' -f4)
+              title="$error_type  coding style error:"
+              echo "::error file=$file,line=$line_num::$title $error_name"
+            done < coding-style-reports.log
+          else
+            echo "::notice:: No coding-style error detected, good work."
+          fi
+
+  check_program_compilation:
+    needs: check_coding_style
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    timeout-minutes: 2
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - name: Check for Makefile
+          run: |
+            if [ ! -f "Makefile" ]; then
+              echo "::error ::/!\\ WARNING NO MAKEFILE FOUND /!\\"
+              exit 1
+            else
+              echo "::notice::Makefile found."
+            fi
+        - name: Launch make
+          run: |
+              if make; then
+                echo "::notice file=Makefile::Succesfully compilation (make)."
+              else
+                echo "::error file=Makefile::/!\\ COMPILATION ERROR (make)/!\\"
+              fi   
+        - name: Launch make clean
+          run: |
+            if make clean; then
+              echo "::notice file=Makefile::Succesfully compilation (make clean)."
+            else
+              echo "::error file=Makefile::/!\\ COMPILATION ERROR (make clean)/!\\"
+            fi
+        - name: Check executables
+          run: |
+              if ! test -x ./corewar; then
+                echo "::error file=$executable::Executable $executable is missing or not executable."
+                exit 1
+              else
+                echo "::notice file=$executable::Executable $executable found and is executable."
+              fi
+        
+  # run_tests:
+  #   needs: check_program_compilation
+  #   runs-on: ubuntu-latest
+  #   container: epitechcontent/epitest-docker
+  #   timeout-minutes: 2
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+  #     - name: Run tests
+  #       run: |
+  #         if make tests_run; then
+  #           echo "::notice file=Makefile::Succesfully test (make test)."
+  #         else
+  #           echo "::error file=Makefile:: WARNING TEST FAIL (make test)."
+  #         fi

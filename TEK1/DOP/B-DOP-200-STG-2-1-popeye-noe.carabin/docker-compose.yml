@@ -1,0 +1,86 @@
+version: '3'
+
+# Poll / worker / result / redis => on error restart
+services:
+
+
+  poll:
+    build: ./poll
+    restart: on-failure
+    environment:
+    - REDIS_HOST=redis
+    ports:
+      - "5000:80"
+    depends_on:
+      - redis
+    networks:
+      - poll-tier
+
+  result:
+    build: ./result
+    restart: on-failure
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=my_data_base
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+    ports:
+      - "5001:80"
+    depends_on:
+      - db
+    networks:
+      - result-tier
+
+  worker:
+    build: ./worker
+    depends_on:
+      - redis
+      - db
+    restart: on-failure
+    networks:
+      - back-tier
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=my_data_base
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - REDIS_HOST=redis
+  
+  redis:
+    image: "redis:7"
+    restart: on-failure
+    networks:
+    - poll-tier
+    - back-tier
+    ports:
+    - "6379:6379"
+
+  db:
+    image: "postgres:16"
+    restart: on-failure
+    environment:
+      - POSTGRES_HOST=db
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=my_data_base
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+    volumes:
+    - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    - db-data:/var/lib/postgresql/data
+    networks:
+    - result-tier
+    - back-tier
+
+
+networks:
+  poll-tier:
+    driver: bridge
+  result-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+
+volumes:
+  db-data:

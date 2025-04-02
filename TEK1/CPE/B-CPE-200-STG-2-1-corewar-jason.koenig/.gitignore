@@ -1,0 +1,4 @@
+.vscode
+corewar
+*.o
+questions.txt

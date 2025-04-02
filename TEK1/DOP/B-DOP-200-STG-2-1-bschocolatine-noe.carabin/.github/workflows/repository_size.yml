@@ -1,0 +1,14 @@
+name: Use Checkout
+on: [push]
+
+jobs:
+  show-infos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get file
+        uses: actions/checkout@v4.1.1
+      - name: Print branche
+        run: echo "branche $GITHUB_REF"
+      - name: Make something give by the subject
+        run: du -skh --exclude=".git"
+  

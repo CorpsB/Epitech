@@ -1,0 +1,4 @@
+error: Database connection timeout
+info: Scheduled maintenance starting tomorrow
+error: Failed to load external module
+warning: Disk almost full
