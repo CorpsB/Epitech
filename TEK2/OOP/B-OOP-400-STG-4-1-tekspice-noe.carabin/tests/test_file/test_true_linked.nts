@@ -1,0 +1,5 @@
+.chipsets:
+    true t0
+    output out
+.links:
+    t0:1 out:1

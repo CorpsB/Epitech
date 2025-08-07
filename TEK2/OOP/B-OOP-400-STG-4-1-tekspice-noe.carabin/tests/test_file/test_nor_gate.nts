@@ -1,0 +1,11 @@
+# Fichier de test : test_nor_gate.nts
+.chipsets:
+input i0
+input i1
+4001 nor0
+output out
+
+.links:
+i0:1 nor0:1
+i1:1 nor0:2
+nor0:3 out:1

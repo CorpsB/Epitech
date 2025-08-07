@@ -1,0 +1,7 @@
+# Fichier de test : test_true_output.nts
+.chipsets:
+true t0
+output out
+
+.links:
+t0:1 out:1

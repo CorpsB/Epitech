@@ -1,0 +1,122 @@
+name: Raytracer
+
+on:
+  push:
+    branches-ignore:
+      - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+      - "ga-ignore-*"
+
+jobs:
+  check_coding_style:
+    runs-on: ubuntu-latest
+    container: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - name: Place depo inside the container
+        uses: actions/checkout@v3
+      - name : Lauch coding-style
+        run: |
+          check.sh $(pwd) $(pwd)
+          if test -s coding-style-reports.log; then
+            while IFS= read -r line; do
+              file=$(echo "$line" | cut -d':' -f1)
+              line_num=$(echo "$line" | cut -d':' -f2-3)
+              error_type=$(echo "$line" | cut -d' ' -f2 | cut -d':' -f1)
+              error_name=$(echo "$line" | cut -d':' -f4)
+              title="$error_type  coding style error:"
+              echo "::error file=$file,line=$line_num::$title $error_name"
+            done < coding-style-reports.log
+            exit 1
+          else
+            echo "::notice:: No coding-style error detected, good work."
+          fi
+
+  check_program_compilation:
+    needs: check_coding_style
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    timeout-minutes: 10
+    env:
+        EXECUTABLES: raytracer
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - name: Install libconfig
+          run: |
+            apt-get update && apt-get install -y libconfig-dev
+        - name: Check for Makefile
+          run: |
+            if [ ! -f "Makefile" ]; then
+              echo "::error ::/!\\ WARNING NO MAKEFILE FOUND /!\\"
+              exit 1
+            else
+              echo "::notice::Makefile found."
+            fi
+        - name: Launch make
+          run: |
+              if make; then
+                echo "::notice file=Makefile::Succesfully compilation (make)."
+                else
+                echo "::error file=Makefile::/!\\ COMPILATION ERROR (make)/!\\"
+                exit 1
+              fi
+        - name: Launch make clean
+          run: |
+            if make clean; then
+              echo "::notice file=Makefile::Succesfully compilation (make clean)."
+            else
+              echo "::error file=Makefile::/!\\ COMPILATION ERROR (make clean)/!\\"
+              exit 1
+            fi
+        - name: Check executables
+          run: |
+            echo "${EXECUTABLES}" | tr ',' | while read executable; do
+              if ! test -x "$executable"; then
+                echo "::error file=$executable::Executable $executable is missing or not executable."
+              else
+                echo "::notice file=$executable::Executable $executable found and is executable."
+                exit 1
+              fi
+            done
+        
+
+  run_tests:
+    needs: check_program_compilation
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    timeout-minutes: 180
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Install libconfig
+        run: |
+          apt-get update && apt-get install -y libconfig-dev
+      - name: Compilation
+        run: |
+            make
+      - name: Run tests on .cfg files
+        run: |
+              EXIT_CODE=0
+              for file in assets/scenes/*.cfg; do
+                filename=$(basename "$file")
+                echo "Testing file: $filename"
+                ./raytracer "$file" || true
+                result=$?
+                if [[ "$filename" == bad_* ]]; then
+                  if [[ "$result" -ne 84 ]]; then
+                    echo "::error file=$file::Expected exit code 84 for bad file '$filename', got $result."
+                    EXIT_CODE=1
+                  else
+                    echo "::notice file=$file::Correctly failed with code 84 for bad file '$filename'."
+                  fi
+                else
+                  if [[ "$result" -ne 0 ]]; then
+                    echo "::error file=$file::Expected exit code 0 for file '$filename', got $result."
+                    EXIT_CODE=1
+                  else
+                    echo "::notice file=$file::Correctly succeeded with code 0 for file '$filename'."
+                  fi
+                fi
+              done
+              exit $EXIT_CODE          

@@ -1,0 +1,31 @@
+.chipsets:
+input a
+input b
+input c
+input d
+input e
+input f
+input g
+input h
+4071 or_chip
+output out1
+output out2
+output out3
+output out4
+
+.links:
+a:1 or_chip:1
+b:1 or_chip:2
+or_chip:3 out1:1
+
+c:1 or_chip:5
+d:1 or_chip:6
+or_chip:4 out2:1
+
+e:1 or_chip:8
+f:1 or_chip:9
+or_chip:10 out3:1
+
+g:1 or_chip:12
+h:1 or_chip:13
+or_chip:11 out4:1

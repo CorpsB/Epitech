@@ -1,0 +1,7 @@
+.chipsets:
+  input a
+  output out
+  not not1
+.links:
+  a:1 not1:1
+  not1:2 out:1

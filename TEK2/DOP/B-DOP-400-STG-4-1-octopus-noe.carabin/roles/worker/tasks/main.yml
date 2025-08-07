@@ -1,0 +1,101 @@
+---
+- name: Créer le fichier d'environnement de result
+  copy:
+    dest: /etc/worker.env
+    content: |
+      POSTGRES_PASSWORD={{ postgres_password }}
+    owner: root
+    mode: '0600'
+
+- name: Installer wget
+  apt:
+    name: wget
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Télécharger OpenJDK 21 dans /tmp
+  get_url:
+    url: https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.2%2B13/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz
+    dest: /tmp/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz
+    mode: '0644'
+
+- name: Créer le répertoire pour Java
+  file:
+    path: /opt/java
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  become: yes
+
+- name: Extraire OpenJDK 21
+  unarchive:
+    src: /tmp/OpenJDK21U-jdk_x64_linux_hotspot_21.0.2_13.tar.gz
+    dest: /opt/java
+    remote_src: yes
+  become: yes
+
+- name: Configurer Java 21 dans update-alternatives
+  alternatives:
+    name: java
+    link: /usr/bin/java
+    path: /opt/java/jdk-21.0.2+13/bin/java
+    priority: 100
+  become: yes
+
+- name: Configurer Javac dans update-alternatives
+  alternatives:
+    name: javac
+    link: /usr/bin/javac
+    path: /opt/java/jdk-21.0.2+13/bin/javac
+    priority: 100
+  become: yes
+
+- name: Configurer JAVA_HOME
+  lineinfile:
+    path: /etc/environment
+    line: 'JAVA_HOME=/opt/java/jdk-21.0.2+13'
+    state: present
+  become: yes
+
+- name: Copier le fichier vers la VM
+  copy:
+    src: worker.tar
+    dest: /home/admin/worker.tar
+    mode: '0644'
+
+- name: Décompression de worker sur la VM
+  unarchive:
+    src: /home/admin/worker.tar
+    dest: /home/admin
+    remote_src: yes
+
+- name: Installer Maven
+  apt:
+    name: maven
+    state: present
+    update_cache: yes
+
+- name: Compiler le projet worker avec Maven
+  command: mvn package
+  args:
+    chdir: /home/admin/worker
+
+- name: Copier le service systemd worker
+  copy:
+    src: worker.service
+    dest: /etc/systemd/system/worker.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Recharger systemd
+  systemd:
+    daemon_reload: yes
+
+- name: Activer worker
+  systemd:
+    name: worker
+    enabled: yes
+    state: restarted

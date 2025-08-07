@@ -1,0 +1,8 @@
+main
+*.hi
+*.o
+coding-style-reports.log
+.stack-work/
+*.cabal
+*.lock
+imageCompressor

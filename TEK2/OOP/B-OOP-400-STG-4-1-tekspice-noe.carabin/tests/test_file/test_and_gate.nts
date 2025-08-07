@@ -1,0 +1,11 @@
+# Fichier de test : test_and_gate.nts
+.chipsets:
+input i0
+input i1
+4081 and0
+output out
+
+.links:
+i0:1 and0:1
+i1:1 and0:2
+and0:3 out:1

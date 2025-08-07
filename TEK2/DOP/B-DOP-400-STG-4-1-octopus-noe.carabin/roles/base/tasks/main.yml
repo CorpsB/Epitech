@@ -1,0 +1,16 @@
+---
+- name: Mise à jour du cache APT
+  apt:
+    update_cache: yes
+
+- name: Installer pip3
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Installer python
+  apt:
+    name: python3
+    state: present
+    update_cache: yes

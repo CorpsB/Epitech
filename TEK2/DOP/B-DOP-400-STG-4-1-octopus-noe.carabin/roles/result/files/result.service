@@ -1,0 +1,18 @@
+[Unit]
+Description=Service Node.js result
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /home/admin/result/server.js
+WorkingDirectory=/home/admin/result
+Restart=always
+User=root
+Environment=PORT=80
+Environment=POSTGRES_HOST=172.31.92.247
+Environment=POSTGRES_PORT=5432
+Environment=POSTGRES_DB=paul
+Environment=POSTGRES_USER=paul
+EnvironmentFile=/etc/result.env 
+
+[Install]
+WantedBy=multi-user.target

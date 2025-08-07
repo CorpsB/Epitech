@@ -1,0 +1,7 @@
+# Fichier de test : test_too_many_link_args.nts
+.chipsets:
+input i0
+output out
+
+.links:
+i0:1 out:1 extraArg

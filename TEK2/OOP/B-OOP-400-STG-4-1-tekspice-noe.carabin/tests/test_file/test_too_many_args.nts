@@ -1,0 +1,5 @@
+# Fichier de test : test_too_many_args.nts
+.chipsets:
+input i0 i1
+
+.links:

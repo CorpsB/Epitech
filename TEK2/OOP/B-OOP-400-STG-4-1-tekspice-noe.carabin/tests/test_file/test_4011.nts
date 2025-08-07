@@ -1,0 +1,31 @@
+.chipsets:
+input a
+input b
+input c
+input d
+input e
+input f
+input g
+input h
+4011 nand_chip
+output out1
+output out2
+output out3
+output out4
+
+.links:
+a:1 nand_chip:1
+b:1 nand_chip:2
+nand_chip:3 out1:1
+
+c:1 nand_chip:5
+d:1 nand_chip:6
+nand_chip:4 out2:1
+
+e:1 nand_chip:8
+f:1 nand_chip:9
+nand_chip:10 out3:1
+
+g:1 nand_chip:12
+h:1 nand_chip:13
+nand_chip:11 out4:1

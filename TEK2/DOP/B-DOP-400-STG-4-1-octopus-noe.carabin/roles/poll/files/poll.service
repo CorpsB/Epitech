@@ -1,0 +1,14 @@
+[Unit]
+Description=Lancement de Poll.
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/admin/poll
+Environment=FLASK_APP=app.py
+Environment=REDIS_HOST=172.31.89.89
+ExecStart=/usr/local/bin/flask run --host=0.0.0.0 --port=80
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

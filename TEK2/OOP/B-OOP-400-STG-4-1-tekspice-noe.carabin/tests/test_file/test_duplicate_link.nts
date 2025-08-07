@@ -1,0 +1,6 @@
+.chipsets:
+    input i0
+    output out
+.links:
+    i0:1 out:1
+    i0:1 out:1

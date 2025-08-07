@@ -1,0 +1,22 @@
+cloudbees-folder
+configuration-as-code
+credentials
+github
+instance-identity
+job-dsl
+script-security
+structs
+role-strategy
+ws-cleanup
+
+jenkins-plugin-cli --plugins cloudbees-folder:6.982.vf165a_16c9507
+jenkins-plugin-cli --plugins configuration-as-code:1932.v75cb_b_f1b_698d
+jenkins-plugin-cli --plugins credentials:1408.va_622a_b_f5b_1b_1
+jenkins-plugin-cli --plugins github:1.42.0
+jenkins-plugin-cli --plugins instance-identity:201.vd2a_b_5a_468a_a_6
+
+jenkins-plugin-cli --plugins job-dsl:1.91
+jenkins-plugin-cli --plugins script-security:1373.vb_b_4a_a_c26fa_00
+jenkins-plugin-cli --plugins structs:343.vdcf37b_a_c81d5
+jenkins-plugin-cli --plugins role-strategy:756.v978cb_392eb_d3
+jenkins-plugin-cli --plugins ws-cleanup:0.48

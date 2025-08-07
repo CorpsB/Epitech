@@ -1,0 +1,7 @@
+# Fichier de test : test_link_invalid_int.nts
+.chipsets:
+input i0
+output out
+
+.links:
+i0:x out:1

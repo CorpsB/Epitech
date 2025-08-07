@@ -1,0 +1,9 @@
+# Fichier de test : test_inverter.nts
+.chipsets:
+input i0
+4069 inv0
+output out
+
+.links:
+i0:1 inv0:1
+inv0:2 out:1

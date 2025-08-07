@@ -1,0 +1,39 @@
+---
+- name: Copier le .tar
+  copy:
+    src: poll.tar
+    dest: /home/admin/poll.tar
+    owner: admin
+    group: sudo
+    mode: '0644'
+
+- name: Décompresser le .tar
+  unarchive:
+    src: /home/admin/poll.tar
+    dest: /home/admin
+    remote_src: yes
+
+- name: Installer pip3
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Installer les dépendances
+  pip:
+    requirements: /home/admin/poll/requirements.txt
+    extra_args: --break-system-packages
+
+- name: Copier le service de poll
+  copy:
+    src: poll.service
+    dest: /etc/systemd/system/poll.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Activer poll 
+  systemd:
+    name: poll
+    enabled: yes
+    state: restarted

@@ -1,0 +1,9 @@
+.chipsets:
+  input a
+  input b
+  and and1
+  output out
+.links:
+  a:1 and1:1
+  b:1 and1:2
+  and1:3 out:1

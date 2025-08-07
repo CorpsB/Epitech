@@ -1,0 +1,6 @@
+[all]
+VM-1 ansible_host=44.202.49.6 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/octopus1.pem
+VM-2 ansible_host=34.226.249.93 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/octopus2.pem
+VM-3 ansible_host=3.95.15.199 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/octopus3.pem
+VM-4 ansible_host=54.158.129.119 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/VM4.pem
+VM-5 ansible_host=54.146.18.101 ansible_user=admin ansible_ssh_private_key_file=~/.ssh/VM5.pem

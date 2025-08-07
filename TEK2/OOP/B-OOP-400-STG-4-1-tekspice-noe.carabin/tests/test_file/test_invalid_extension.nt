@@ -1,0 +1,2 @@
+# Fichier de test_invalid_extension.nt
+# Vide ou n'importe quoi, car il n'est jamais parsé si l'extension n'est pas .nts

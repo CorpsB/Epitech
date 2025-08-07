@@ -1,0 +1,62 @@
+---
+- name: Copier le fichier sur la VM
+  copy:
+    src: result.tar
+    dest: /home/admin
+    mode: '0644'
+
+- name: Créer le fichier d'environnement de result
+  copy:
+    dest: /etc/result.env
+    content: |
+      POSTGRES_PASSWORD={{ postgres_password }}
+    owner: root
+    mode: '0600'
+
+- name: Décompression de result
+  unarchive:
+    src: /home/admin/result.tar
+    dest: /home/admin
+    remote_src: yes
+
+- name: Installer les dépendances Node.js
+  apt:
+    name: [curl, gnupg]
+    state: present
+    update_cache: yes
+
+- name: Ajouter le dépôt NodeSource
+  apt_key:
+    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+    state: present
+
+- name: Ajouter le dépôt NodeSource à APT
+  apt_repository:
+    repo: deb https://deb.nodesource.com/node_20.x nodistro main
+    state: present
+    filename: nodesource
+
+- name: Installer Node.js
+  apt:
+    name: nodejs
+    state: present
+
+- name: Installer les dépendances du projet Node.js avec le module npm
+  npm:
+    path: /home/admin/result
+    production: no
+
+- name: Copier le fichier result.service déjà écrit
+  copy:
+    src: result.service
+    dest: /etc/systemd/system/result.service
+    mode: '0644'
+
+- name: Recharger systemd pour prendre en compte result.service
+  command: systemctl daemon-reload
+
+- name: Activer et démarrer le service result
+  systemd:
+    name: result
+    enabled: yes
+    state: restarted

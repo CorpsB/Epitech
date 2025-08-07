@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>mypandoc web</title>
+</head>
+<body>
+  <h1>Convertisseur de documents</h1>
+
+  <form id="form" action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="fichier" required><br><br>
+
+    <label for="format">Format de sortie :</label>
+    <select name="format" id="format" required>
+      <option value="markdown">markdown (.md)</option>
+      <option value="json">json (.json)</option>
+      <option value="xml">xml (.xml)</option>
+    </select><br><br>
+
+    <button type="submit">Convertir</button>
+    <p id="msg" style="color:red"></p>
+  </form>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Fichier de test : test_missing_chipset.nts
+# On n'a volontairement pas de ligne ".chipsets:"
+.links:
+# Pas de composants déclarés
+i0:1 i1:2

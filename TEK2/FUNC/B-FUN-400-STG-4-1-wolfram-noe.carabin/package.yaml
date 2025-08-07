@@ -1,0 +1,14 @@
+name: wolfram
+version: 0.1.0.0
+resolver: lts-23.3
+
+dependencies:
+  - base
+
+executables:
+  wolfram:
+    source-dirs: src
+    main: Main.hs
+    ghc-options:
+      - -Wall
+      - -Wextra

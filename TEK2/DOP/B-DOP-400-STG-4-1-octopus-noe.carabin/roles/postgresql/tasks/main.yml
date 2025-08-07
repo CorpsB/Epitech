@@ -1,0 +1,153 @@
+---
+- name: Paquets utiles
+  apt:
+    name:
+      - curl
+      - gnupg2
+      - lsb-release
+    state: present
+    update_cache: yes
+  become: yes
+
+- name: Clé GPG officielle PostgreSQL
+  ansible.builtin.apt_key:
+    url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+    state: present
+  become: yes
+
+- name: Déterminer le code de distribution (bookworm)
+  set_fact:
+    deb_release: "{{ ansible_distribution_release }}"
+
+- name: Dépôt PGDG pour PostgreSQL 16
+  ansible.builtin.apt_repository:
+    repo: "deb http://apt.postgresql.org/pub/repos/apt {{ deb_release }}-pgdg main"
+    filename: pgdg
+    state: present
+  become: yes
+
+- name: Mise à jour de la liste des paquets
+  apt:
+    update_cache: yes
+  become: yes
+
+- name: Installer PostgreSQL 16 + client + psycopg2
+  apt:
+    name:
+      - postgresql-16
+      - postgresql-client-16
+      - python3-psycopg2
+    state: present
+  become: yes
+
+- name: postgresql.conf
+  copy:
+    src: postgresql.conf
+    dest: /etc/postgresql/16/main/postgresql.conf
+    owner: postgres
+    group: postgres
+    mode: "0644"
+
+- name: pg_hba.conf
+  copy:
+    src: pg_hba.conf
+    dest: /etc/postgresql/16/main/pg_hba.conf
+    owner: postgres
+    group: postgres
+    mode: "0640"
+
+- name: Assurer le démarrage du cluster 16-main
+  systemd:
+    name: postgresql@16-main
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Créer l’utilisateur paul
+  community.postgresql.postgresql_user:
+    name: "{{ postgres_user }}"
+    password: "{{ postgres_password }}"
+    encrypted: yes
+    login_user: postgres
+  become: yes
+
+- name: Créer la base paul
+  community.postgresql.postgresql_db:
+    name: paul
+    owner: "{{ postgres_user }}"
+    login_user: postgres
+  become: yes
+
+- name: Droits CREATE + CONNECT sur la base paul
+  community.postgresql.postgresql_privs:
+    db: paul
+    roles: "{{ postgres_user }}"
+    type: database
+    privs: CONNECT,CREATE
+    objs: paul
+    login_user: postgres
+  become: yes
+
+- name: Droits USAGE + CREATE sur le schéma public
+  community.postgresql.postgresql_privs:
+    db: paul
+    roles: "{{ postgres_user }}"
+    type: schema
+    objs: public
+    privs: USAGE,CREATE
+    login_user: postgres
+  become: yes
+
+- name: Copier schema.sql
+  copy:
+    src: schema.sql
+    dest: /tmp/schema.sql
+    owner: postgres
+    group: postgres
+    mode: '0644'
+  become: yes
+
+- name: Importer le schéma (table votes)
+  community.postgresql.postgresql_script:
+    db: paul
+    path: /tmp/schema.sql
+    login_user: postgres
+  become: yes
+
+- name: Passer la table votes sous le propriétaire paul
+  community.postgresql.postgresql_owner:
+    db: paul
+    obj_type: table
+    obj_name: votes
+    new_owner: "{{ postgres_user }}"
+    login_user: postgres
+  become: yes
+
+- name: Droits complets sur votes
+  community.postgresql.postgresql_privs:
+    db: paul
+    type: table
+    schema: public
+    objs: votes
+    roles: "{{ postgres_user }}"
+    privs: INSERT,SELECT,UPDATE,DELETE
+    login_user: postgres
+  become: yes
+
+- name: ACL par défaut pour les futures tables
+  community.postgresql.postgresql_privs:
+    db: paul
+    type: default_privs
+    schema: public
+    objs: tables
+    roles: "{{ postgres_user }}"
+    privs: INSERT,SELECT,UPDATE,DELETE
+    state: present
+    login_user: postgres
+  become: yes
+
+- name: Relancer PostgreSQL pour prendre en compte la conf
+  systemd:
+    name: postgresql@16-main
+    state: restarted
+  become: yes

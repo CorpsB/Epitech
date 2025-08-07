@@ -1,0 +1,9 @@
+.chipsets:
+  input a
+  input b
+  output out
+  xor xor1
+.links:
+  a:1 xor1:1
+  b:1 xor1:2
+  xor1:3 out:1

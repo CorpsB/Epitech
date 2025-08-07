@@ -1,0 +1,9 @@
+a.out
+*.o
+*.hi
+.vscode
+nanotekspice
+.idea
+main3.cpp
+.next
+log.bin

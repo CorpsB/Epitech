@@ -1,0 +1,6 @@
+# Fichier de test : test_same_name.nts
+.chipsets:
+input i0
+input i0
+
+.links:

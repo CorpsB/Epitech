@@ -1,0 +1,33 @@
+.chipsets:
+input a
+input b
+input c
+input d
+input e
+input f
+4069 inverter_chip
+output out1
+output out2
+output out3
+output out4
+output out5
+output out6
+
+.links:
+a:1 inverter_chip:1
+inverter_chip:2 out1:1
+
+b:1 inverter_chip:3
+inverter_chip:4 out2:1
+
+c:1 inverter_chip:5
+inverter_chip:6 out3:1
+
+d:1 inverter_chip:9
+inverter_chip:8 out4:1
+
+e:1 inverter_chip:11
+inverter_chip:10 out5:1
+
+f:1 inverter_chip:13
+inverter_chip:12 out6:1

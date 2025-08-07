@@ -1,0 +1,7 @@
+# Fichier de test : test_simple_in_out.nts
+.chipsets:
+input i0
+output out
+
+.links:
+i0:1 out:1

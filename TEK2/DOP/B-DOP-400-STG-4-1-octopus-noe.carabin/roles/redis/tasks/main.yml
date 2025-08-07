@@ -1,0 +1,25 @@
+---
+- name: Installer Redis
+  apt:
+    name: redis-server
+    state: present
+    update_cache: yes
+
+- name: Copier la config
+  copy:
+    src: redis.conf
+    dest: /etc/redis/redis.conf
+    owner: redis
+    group: redis
+    mode: '0644'
+
+- name: Activer redis
+  systemd:
+    name: redis
+    state: started
+    enabled: yes
+
+- name: Restart redis
+  systemd:
+    name: redis
+    state: restarted

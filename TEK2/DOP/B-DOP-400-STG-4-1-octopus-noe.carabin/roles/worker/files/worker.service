@@ -1,0 +1,18 @@
+[Unit]
+Description=Lancement de Worker.
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/java -jar /home/admin/worker/target/worker-jar-with-dependencies.jar
+User=admin
+Environment=REDIS_HOST=172.31.89.89
+Environment=POSTGRES_HOST=172.31.92.247
+Environment=POSTGRES_PORT=5432
+Environment=POSTGRES_DB=paul
+Environment=POSTGRES_USER=paul
+EnvironmentFile=/etc/worker.env 
+WorkingDirectory=/home/admin/worker
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

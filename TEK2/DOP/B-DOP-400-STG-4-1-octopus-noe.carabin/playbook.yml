@@ -1,0 +1,35 @@
+- hosts: all
+  become: yes
+  roles:
+    - base
+
+- hosts: VM-1
+  become: yes
+  roles:
+    - redis
+
+- hosts: VM-2
+  become: yes
+  vars_files:
+    - secrets.yml
+  roles:
+    - postgresql
+
+- hosts: VM-3
+  become: yes
+  roles:
+    - poll
+
+- hosts: VM-4
+  become: yes
+  vars_files:
+    - secrets.yml
+  roles:
+    - worker
+
+- hosts: VM-5
+  become: yes
+  vars_files:
+    - secrets.yml
+  roles:
+    - result

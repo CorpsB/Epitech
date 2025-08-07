@@ -1,0 +1,5 @@
+# Fichier de test : test_unknown_component.nts
+.chipsets:
+dummy i0
+
+.links:

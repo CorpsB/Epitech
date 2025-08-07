@@ -1,0 +1,114 @@
+# NanoTekSpice - A Digital Logic Simulator
+
+## Description
+
+**NanoTekSpice** is a logic circuit simulator that processes digital electronic components based on Boolean logic.  
+It builds a graph of components from a configuration file, injects values, and simulates the circuit over time.  
+
+This project is written in **C++** and follows object-oriented principles to model electronic components and their interactions.
+
+## Installation
+
+To compile the project, use the provided **Makefile**:
+make
+
+
+This will generate the `nanotekspice` binary.  
+To clean up the build files, use:
+make clean # Removes object files make fclean # Removes object files and the binary
+
+
+Alternatively, **CMake** can be used to compile the project.
+
+## Usage
+
+Run the simulator by passing a circuit configuration file:
+./nanotekspice <circuit_file.nts>
+
+
+Once started, the program enters an interactive mode, where you can use the following commands:
+
+### Commands
+
+- `exit` – Closes the program.
+- `display` – Prints the current tick and the values of all inputs and outputs.
+- `<input>=<value>` – Sets an input's value (possible values: `0`, `1`, `U` for undefined).
+- `simulate` – Simulates a tick of the circuit.
+- `loop` – Continuously runs the simulation (simulate, display, simulate, ...) until interrupted with `CTRL+C`.
+
+Each command is entered after the prompt (`> `).
+
+When printing values:
+- `0` = Low signal
+- `1` = High signal
+- `U` = Undefined state
+
+## Configuration File Format
+
+A configuration file (`.nts`) defines the circuit using two sections:
+
+### `.chipsets:`
+Declares components, e.g.:
+.chipsets: 
+input i0 
+input i1 
+4081 and0 
+output out
+
+
+### `.links:`
+Defines connections between components:
+.links:
+i0:1
+and0:1
+i1:1
+and0:2
+and0:3
+out:1
+
+
+Lines starting with `#` are comments.
+
+## Error Handling
+
+If an error occurs, the program exits with **status code 84** and prints an error message to `stderr`.  
+Common errors include:
+- Invalid syntax in the circuit file.
+- Unknown component types.
+- Duplicate component names.
+- Missing necessary components.
+
+## Example Execution
+
+$ ./nanotekspice example.nts
+a=1 b=0 simulate display tick: 1 input(s): a: 1 b: 0 output(s): s: 1 exit
+
+
+The program should never crash due to uncaught exceptions, segmentation faults, or infinite loops.
+
+---
+
+### Help Option (`-h`)
+
+Running the program with `-h` displays this help message:
+
+$ ./nanotekspice -h Usage: ./nanotekspice <circuit_file.nts> Simulates a digital circuit using Boolean logic.
+
+Commands: exit Close the program.
+display Show the current state of all inputs/outputs.
+<input>=<value> Set an input value (0, 1, U).
+simulate Run one simulation tick.
+loop Run simulation continuously until interrupted.
+
+---
+
+## License
+
+This project is provided as is, without any warranty.  
+Feel free to modify and improve it.
+
+---
+
+## Authors
+
+Koenig Jason and Carabin Noé 

@@ -1,0 +1,7 @@
+# Fichier de test : test_clock.nts
+.chipsets:
+clock c0
+output out
+
+.links:
+c0:1 out:1
