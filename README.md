@@ -7,7 +7,7 @@ Les projets sont triés par année, et contiennent dans la mesure du possible un
 Pour la réalisation de la plupart de ces projets, je n'étais pas seul, car la scolarité à Epitech veut que l'on travaille en groupe, pour nous familirariser avec le travail d'équipe et le cadre professionnel. Le code que vous verrez, bien qu'intégrer à mon projet peut ne pas avoir été écris dans son intégralité par mes soins, mais par certains de mes cammarades.
 
 # SOMMAIRE
-**__Première année :__**
+**<u>Première année :</u>**
 La première année se constitue prncicpalement de C à Epitech, pour nous apprendre les bases et la logique de la programmation. D'autres modules facultatifs comme l'IA ou les mathématiques sont en langugage libres, il nous appartient donc de choisir le language qi nous correspond le mieux. 
 
 **Modules principaux :**
@@ -21,6 +21,7 @@ La première année se constitue prncicpalement de C à Epitech, pour nous appre
 - PRO : PROFESSIONNAL COMMUNICATION
 - MAT : MATHEMATICS
 - ENG : ENGLISH PRATCTICAL
+
 *J'ai également réalisé le module de cyber sécurité, mais il ne contenait pas de projets à push dans un dépot. Plus d'informations dans le dossier SEC*
 
 
