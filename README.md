@@ -38,16 +38,18 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 |---|:--:|--:|
 | B1 – Unix & C Lab Seminar (Part I) | B | 4 |
 | B1 – Unix & C Lab Seminar (Part II) | C | 3 |
-| SO – KYT/CAT – Algorithms | — | 1 |
+| SO – KYT/CAT – Algorithms | D | 1 |
 | B1 – Elementary Programming in C | B | 5 |
 | B1 – C Graphical Programming | B | 5 |
 | B1 – Mathematics | A | 2 |
 | B1 – Networks & Systems Administration | C | 2 |
-| B1 – Administrative Meetings | — | 1 |
+| B1 – Administrative Meetings | Aquis | 0 |
 | B1 – Introduction to Project Management | Acquis | 1 |
 | B1 – Professional Communication | A | 2 |
-| B1 – Unix System Programming | C | 2 |
-| **B0 – Crédits retirés par le jury** | — | **−16** |
+| B1 – Unix System Programming | C | 5 |
+| B2 - English - Practical | A | 3 |
+| S0 - Kyt/Cat - Artificial Intelligence | E | 0/1 |
+| G0 - Epitech Diversity | Acquis | 1 |
 
 **Total S1 : 37 crédits acquis** (après retrait de 16 crédits par le jury)
 
