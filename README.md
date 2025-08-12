@@ -24,6 +24,16 @@ La première année se constitue prncicpalement de C à Epitech, pour nous appre
 
 *J'ai également réalisé le module de cyber sécurité, mais il ne contenait pas de projets à push dans un dépot. Plus d'informations dans le dossier SEC*
 
+**Seconde année :**
+*Lors de la seconde année, nous sommes libres de choisir pleinement les modules qui nous interessent, il n'y a donc plus de modules principaux, ou secondaire. Bien que foretement encouragé à suivre le module de programaton orienté objet (OOP).*
+
+- Pool : La piscine se compose en trois partie : Haskell (programation fontionelle), C modulaire (dérivé orieenté object du C), et C++.
+- OOP : ORIENTED OBJECT PROGRAMMING
+- DOP : Introduction to DevOps
+- English practical
+- ASM : ASSEMBLY
+- Profesionnal communication
+- FUNC : FUNCTIONAL PROGRAMMING
 
 **ATTENTION**
 Mention spéciale pour les elves d'Epitech : 
