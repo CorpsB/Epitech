@@ -46,6 +46,7 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 | B1 – Administrative Meetings | Acquis | 0 |
 | B1 – Introduction to Project Management | Acquis | 1 |
 | B1 – Professional Communication | A | 2 |
+| B1 - English Practical | A | 3 |
 | B1 – Unix System Programming | C | 5 |
 | B2 - English - Practical | A | 3 |
 | S0 - Kyt/Cat - Artificial Intelligence | E | 0/1 |
