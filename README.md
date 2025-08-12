@@ -47,8 +47,9 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 | B1 – Introduction to Project Management | Acquis | 1 |
 | B1 – Professional Communication | A | 2 |
 | B1 – Unix System Programming | C | 2 |
+| **B0 – Crédits retirés par le jury** | — | **−16** |
 
-**Total S1 : 37 crédits acquis** (Intranet)
+**Total S1 : 37 crédits acquis** (après retrait de 16 crédits par le jury)
 
 #### UE non validée (échec)
 - SO – KYT/CAT – Artificial Intelligence — *Échec* (1 crédit)
