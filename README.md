@@ -43,7 +43,7 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 | B1 – C Graphical Programming | B | 5 |
 | B1 – Mathematics | A | 2 |
 | B1 – Networks & Systems Administration | C | 2 |
-| B1 – Administrative Meetings | Aquis | 0 |
+| B1 – Administrative Meetings | Acquis | 0 |
 | B1 – Introduction to Project Management | Acquis | 1 |
 | B1 – Professional Communication | A | 2 |
 | B1 – Unix System Programming | C | 5 |
