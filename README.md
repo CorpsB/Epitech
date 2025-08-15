@@ -21,7 +21,7 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 | Semestre | Crédits acquis | Échecs |
 |---|---:|---:|
 | **S1** | **37** | 3 |
-| **S2** | **23** | 0 |
+| **S2** | **37** | 0 |
 | **S3** | **20** | 0 |
 | **S4** | **50** | 0 |
 | **Total (S1→S4)** | **130** | — |
@@ -30,9 +30,11 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 
 ---
 
-## 📚 Semestre 1
+## Première année
 
-### UE validées (avec crédits)
+### 📚 Semestre 1
+
+#### UE validées (avec crédits)
 
 | Intitulé | Grade | Crédits |
 |---|:--:|--:|
@@ -52,69 +54,73 @@ Les projets sont rangés par semestre et, lorsque possible, accompagnés d’un 
 | S0 - Kyt/Cat - Artificial Intelligence | E | 0/1 |
 | G0 - Epitech Diversity | Acquis | 1 |
 
-**Total S1 : 37 crédits acquis** (après retrait de 16 crédits par le jury)
-
-#### UE non validée (échec)
-- SO – KYT/CAT – Artificial Intelligence — *Échec* (1 crédit)
+**Total S1 : 37 crédits acquis**
 
 ---
 
-## 📚 Semestre 2
+### 📚 Semestre 2
 
-### UE validées (avec crédits)
+#### UE validées (avec crédits)
 
 | Intitulé | Grade | Crédits |
 |---|:--:|--:|
 | G0 – Promoting Epitech | Acquis | 1 |
-| G0 – Epitech JAM | Acquis | 1 |
+| G0 – Epitech JAM (25/03/24)| Acquis | 1 |
 | B2 – Introduction to DevOps | A | 2 |
 | B2 – Introduction to Cyber Security | C | 2 |
 | B2 – Introduction to A.I. | A | 3 |
 | B2 – Professional Communication | D | 2 |
+| G0 – Epitech JAM (21/05/24)| Acquis | 1 |
 | B2 – Elementary Programming in C | B | 9 |
-| B2 – Shell Programming | C | 2 |
-| B2 – Introduction to Project Management | B | 2 |
+| B2 – Shell Programming | B | 9 |
+| B2 – Introduction to Project Management | B | 1 |
 | B2 – C Graphical Programming | A | 6 |
 
-**Total S2 : 23 crédits acquis** (Intranet)
+**Total S2 : 37 crédits acquis** (Intranet)
 
+## Total première année 74 / 60.
 ---
 
-## 📚 Semestre 3
+## Deuxième année
 
-### UE validées (avec crédits)
+### 📚 Semestre 3
+
+#### UE validées (avec crédits)
 
 | Intitulé | Grade | Crédits |
 |---|:--:|--:|
 | G3 – Internship | A | 20 |
 
-**Total S3 : 20 crédits acquis** (Intranet)
+**Total S3 : 20 crédits acquis**
 
 ---
 
-## 📚 Semestre 4
+### 📚 Semestre 4
 
-### UE validées (avec crédits)
+#### UE validées (avec crédits)
 
 | Intitulé | Grade | Crédits |
 |---|:--:|--:|
-| G3 – Administrative Meetings | A | 2 |
 | G3 – IONIS Projects Week | Acquis | 2 |
-| G4 – Paradigms Seminar | B | 2 |
+| G4 – Paradigms Seminar | A | 6 |
 | G4 – x86-64 Assembly | B | 2 |
-| G4 – Network Programming | A | 5 |
-| G4 – DevOps | A | 5 |
-| G4 – Functional Programming | B | 4 |
-| G4 – English – Practical | Acquis | 2 |
-| G4 – Cyber Security | A | 5 |
-| G4 – Object-Oriented Programming | B | 5 |
+| G4 – Network Programming | B | 5 |
+| G4 – DevOps | A | 3 |
+| G4 – Functional Programming | A | 5 |
+| G4 – English – Practical | B | 2 |
+| G4 – Cyber Security | A | 2 |
+| G4 – Object-Oriented Programming | A | 6 |
+| G4 - Free project | Acquis | 2 |
+| G4 - Promoting Epitech | Acquis | 2 |
+| G4 - Hackathon | Acquis | 3 |
+| G4 - Extra Curricular Engagement | Acquis | 2 |
 | G4 – Professional Communication | A | 2 |
 | G4 – Project Management | B | 1 |
-| G4 – Year-End Project – Zappy | A | 5 |
-| G4 – Administrative Meetings | A | 2 |
+| G4 – Year-End Project – Zappy | B | 5 |
 
 **Total S4 : 50 crédits acquis** (Intranet)
 
+## Total deuxième année 70 / 60
 ---
 
 ## ⚠️ Avertissement aux étudiants Epitech
